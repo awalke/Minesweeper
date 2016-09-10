@@ -5,7 +5,7 @@ function changeColor(elmt) {
 
 	if (gameOver.innerHTML != "Game Over") {
 		if (elmt.innerHTML != "*") {
-			elmt.style.backgroundColor = "white";
+			elmt.style.backgroundColor = "transparent";
 			elmt.style.color = "black";
 		}
 		else {
@@ -24,15 +24,15 @@ function startOver() {
 
 	gameOver.innerHTML = "";
 
-	if (easyButton.style.backgroundColor == "rgb(51, 51, 51)") {
+	if (easyButton.style.backgroundColor == "rgb(56, 56, 56)") {
 		easy();
 	}
 
-	else if (mediumButton.style.backgroundColor == "rgb(51, 51, 51)") {
+	else if (mediumButton.style.backgroundColor == "rgb(56, 56, 56)") {
 		medium();
 	}
 
-	else if (hardButton.style.backgroundColor == "rgb(51, 51, 51)") {
+	else if (hardButton.style.backgroundColor == "rgb(56, 56, 56)") {
 		hard();
 	}
 }
@@ -42,7 +42,7 @@ function easy() {
 	t.innerHTML = "";
 
 	var easyButton = document.getElementById("easy");
-	easyButton.style.backgroundColor = "#333333";
+	easyButton.style.backgroundColor = "#383838";
 
 	var mediumButton = document.getElementById("medium");
 	mediumButton.style.backgroundColor = "black";
@@ -61,7 +61,7 @@ function medium() {
 	easyButton.style.backgroundColor = "black";
 
 	var mediumButton = document.getElementById("medium");
-	mediumButton.style.backgroundColor = "#333333";
+	mediumButton.style.backgroundColor = "#383838";
 
 	var hardButton = document.getElementById("hard");
 	hardButton.style.backgroundColor = "black";
@@ -80,7 +80,7 @@ function hard() {
 	mediumButton.style.backgroundColor = "black";
 
 	var hardButton = document.getElementById("hard");
-	hardButton.style.backgroundColor = "#333333";
+	hardButton.style.backgroundColor = "#383838";
 
 	populate(3);
 }
