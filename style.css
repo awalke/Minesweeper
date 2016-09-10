@@ -1,0 +1,48 @@
+body {
+	font-family: Arial;
+}
+
+table {
+	width: 30%;
+	text-align: center;
+	border-spacing: 0px;
+	margin-left: auto;
+	margin-right: auto;
+	border-color: transparent;
+	margin-top: 7%;
+}
+
+table, tr, td {
+    border: none;
+    border-radius: 20px;
+    height: 40px;
+}
+
+td {
+	background-color: grey;
+	color: transparent;
+	font-size: 18px;
+}
+
+td:hover {
+	background-color: darkgrey;
+}
+
+button {
+	background-color: black;
+	color: white;
+	border: none;
+	border-radius: 10px;
+	font-size: 30px;
+}
+
+#button {
+	text-align: center;
+	margin-top: 0px;
+}
+
+#gameOver {
+	margin-top: 30px;
+	text-align: center;
+	margin-bottom: 20px;
+}
