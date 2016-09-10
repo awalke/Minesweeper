@@ -1,6 +1,6 @@
 body {
 	font-family: Arial;
-	background-color: lightgrey;
+	background-color: white;
 }
 
 #levels {
@@ -40,11 +40,11 @@ td {
 }
 
 td:hover {
-	background-color: darkgrey;
+	background-color: #00bfff;
 }
 
 button {
-	background-color: black;
+	background-color: #00bfff;
 	color: white;
 	border: none;
 	border-radius: 10px;
@@ -66,6 +66,7 @@ button:hover {
 	margin-top: 30px;
 	text-align: center;
 	margin-bottom: 20px;
+	font-weight: bolder;
 }
 
 #startOver {
