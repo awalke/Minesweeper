@@ -1,3 +1,4 @@
+easy();
 
 function changeColor(elmt) {
 	var gameOver = document.getElementById("gameOver");
@@ -16,10 +17,76 @@ function changeColor(elmt) {
 }
 
 function startOver() {
-	location.reload();
+	var gameOver = document.getElementById("gameOver");
+	var easyButton = document.getElementById("easy");
+	var mediumButton = document.getElementById("medium");
+	var hardButton = document.getElementById("hard");
+
+	gameOver.innerHTML = "";
+
+	if (easyButton.style.backgroundColor == "rgb(51, 51, 51)") {
+		easy();
+	}
+
+	else if (mediumButton.style.backgroundColor == "rgb(51, 51, 51)") {
+		medium();
+	}
+
+	else if (hardButton.style.backgroundColor == "rgb(51, 51, 51)") {
+		hard();
+	}
 }
 
-function populate() {
+function easy() {
+	var t = document.getElementById("minesweeper");
+	t.innerHTML = "";
+
+	var easyButton = document.getElementById("easy");
+	easyButton.style.backgroundColor = "#333333";
+
+	var mediumButton = document.getElementById("medium");
+	mediumButton.style.backgroundColor = "black";
+
+	var hardButton = document.getElementById("hard");
+	hardButton.style.backgroundColor = "black";
+
+	populate(10);
+}
+
+function medium() {
+	var t = document.getElementById("minesweeper");
+	t.innerHTML = "";
+
+	var easyButton = document.getElementById("easy");
+	easyButton.style.backgroundColor = "black";
+
+	var mediumButton = document.getElementById("medium");
+	mediumButton.style.backgroundColor = "#333333";
+
+	var hardButton = document.getElementById("hard");
+	hardButton.style.backgroundColor = "black";
+
+	populate(5);
+}
+
+function hard() {
+	var t = document.getElementById("minesweeper");
+	t.innerHTML = "";
+
+	var easyButton = document.getElementById("easy");
+	easyButton.style.backgroundColor = "black";
+
+	var mediumButton = document.getElementById("medium");
+	mediumButton.style.backgroundColor = "black";
+
+	var hardButton = document.getElementById("hard");
+	hardButton.style.backgroundColor = "#333333";
+
+	populate(3);
+}
+
+
+function populate(max) {
 	var t = document.getElementById("minesweeper");
 	var random = 0;
 	var symbol = "";
@@ -29,9 +96,9 @@ function populate() {
 		var tr = document.getElementById(i);
 
 		for (j = 0; j < 10 ; j++) {
-			random = getRandom(1, 5);
+			random = getRandom(1, max);
 
-			if (random == 3) {
+			if (random == 1) {
 				symbol = "*";
 			}
 			else {
@@ -130,5 +197,3 @@ function populateNumbers() {
 		}
 	}
 }
-
-populate();
