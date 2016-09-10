@@ -9,9 +9,32 @@ function changeColor(elmt) {
 			elmt.style.color = "black";
 		}
 		else {
-			elmt.style.backgroundColor = "white";
-			elmt.style.color = "red";
-			gameOver.innerHTML = "Game Over";
+			gameOver.innerHTML = "Game Over!";
+
+			for (x = 0; x < 10; x++) {
+		
+				for (y = 0; y < 10; y++) {
+					var td = document.getElementById(x.toString() + y.toString());
+					
+
+					if (td.innerHTML == "*" ) {
+						console.log(td.id);
+						td.innerHTML = "<img src=\"bomb.png\" height=\"10\" width=\"10\">";
+						if (elmt.id == td.id) {
+							td.style.backgroundColor = "rgb(255, 204, 204)";
+						}
+						else {
+							td.style.backgroundColor = "transparent";
+						}
+					}
+					else {
+						td.style.color = "black";
+						td.style.backgroundColor = "transparent";
+					}
+					
+				}
+			}
+
 		}
 	}
 }
