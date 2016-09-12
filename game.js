@@ -7,9 +7,10 @@ function changeColor(elmt) {
 		if (elmt.innerHTML != "*") {
 			elmt.style.backgroundColor = "transparent";
 			elmt.style.color = "black";
+			revealZeros(elmt);
 		}
 		else {
-			gameOver.innerHTML = "Game Over!";
+			gameOver.innerHTML = "GAME OVER!";
 
 			for (x = 0; x < 10; x++) {
 		
@@ -18,8 +19,7 @@ function changeColor(elmt) {
 					
 
 					if (td.innerHTML == "*" ) {
-						console.log(td.id);
-						td.innerHTML = "<img src=\"bomb.png\" height=\"10\" width=\"10\">";
+						td.innerHTML = "<img src=\"mine.png\" height=\"10\" width=\"10\">";
 						if (elmt.id == td.id) {
 							td.style.backgroundColor = "rgb(255, 204, 204)";
 						}
@@ -35,6 +35,87 @@ function changeColor(elmt) {
 				}
 			}
 
+		}
+	}
+}
+
+function revealZeros(td) {
+	var x = parseInt(td.id.charAt(0));
+	var y = parseInt(td.id.charAt(1));
+
+	if (x > 0) {
+		tempX = x - 1;
+		td = document.getElementById(tempX.toString() + y.toString())
+		if (td.innerHTML == "0") {
+			td.style.backgroundColor = "transparent";
+			td.style.color = "black";
+		}
+	}
+
+	if (y > 0) {
+		tempY = y - 1;
+		td = document.getElementById(x.toString() + tempY.toString())
+		if (td.innerHTML == "0") {
+			td.style.backgroundColor = "transparent";
+			td.style.color = "black";
+		}
+	}
+	if (x < 9) {
+		tempX = x + 1;
+		td = document.getElementById(tempX.toString() + y.toString())
+		if (td.innerHTML == "0") {
+			td.style.backgroundColor = "transparent";
+			td.style.color = "black";
+		}
+	}
+
+	if (y < 9) {
+		tempY = y + 1;
+		td = document.getElementById(x.toString() + tempY.toString())
+		if (td.innerHTML == "0") {
+			td.style.backgroundColor = "transparent";
+			td.style.color = "black";
+		}
+	}
+	
+	if(x > 0 && y > 0) {
+		tempX = x - 1;
+		tempY = y - 1
+		td = document.getElementById(tempX.toString() + tempY.toString())
+		if (td.innerHTML == "0") {
+			td.style.backgroundColor = "transparent";
+			td.style.color = "black";
+		}
+	}
+	
+	if(x < 9 && y < 9) {
+		tempX = x + 1;
+		tempY = y + 1
+		td = document.getElementById(tempX.toString() + tempY.toString())
+		if (td.innerHTML == "0") {
+			td.style.backgroundColor = "transparent";
+			td.style.color = "black";
+		}
+	}
+	
+	if (x > 0 && y < 9) {
+		tempX = x - 1;
+		tempY = y + 1
+		td = document.getElementById(tempX.toString() + tempY.toString())
+		if (td.innerHTML == "0") {
+			td.style.backgroundColor = "transparent";
+			td.style.color = "black";
+		}
+	}
+
+	if (x < 9 && y > 0) {
+		tempX = x + 1;
+		tempY = y - 1;
+		td = document.getElementById(tempX.toString() + tempY.toString());
+
+		if (td.innerHTML == "0") {
+			td.style.backgroundColor = "transparent";
+			td.style.color = "black";
 		}
 	}
 }
@@ -68,12 +149,12 @@ function easy() {
 	easyButton.style.backgroundColor = "#00bfff";
 
 	var mediumButton = document.getElementById("medium");
-	mediumButton.style.backgroundColor = "black";
+	mediumButton.style.backgroundColor = "#383838";
 
 	var hardButton = document.getElementById("hard");
-	hardButton.style.backgroundColor = "black";
+	hardButton.style.backgroundColor = "#383838";
 
-	populate(10);
+	populate(8);
 }
 
 function medium() {
@@ -81,15 +162,15 @@ function medium() {
 	t.innerHTML = "";
 
 	var easyButton = document.getElementById("easy");
-	easyButton.style.backgroundColor = "black";
+	easyButton.style.backgroundColor = "#383838";
 
 	var mediumButton = document.getElementById("medium");
 	mediumButton.style.backgroundColor = "#00bfff";
 
 	var hardButton = document.getElementById("hard");
-	hardButton.style.backgroundColor = "black";
+	hardButton.style.backgroundColor = "#383838";
 
-	populate(5);
+	populate(6);
 }
 
 function hard() {
@@ -105,7 +186,7 @@ function hard() {
 	var hardButton = document.getElementById("hard");
 	hardButton.style.backgroundColor = "#00bfff";
 
-	populate(3);
+	populate(4);
 }
 
 
@@ -203,6 +284,28 @@ function populateNumbers() {
 			if(x < 9 && y < 9) {
 				tempX = x + 1;
 				tempY = y + 1;
+
+				td = document.getElementById(tempX.toString() + tempY.toString());
+
+				if (td.innerHTML == "*") {
+					cellCount++;
+				}
+			}
+
+			if (x > 0 && y < 9) {
+				tempX = x - 1;
+				tempY = y + 1;
+
+				td = document.getElementById(tempX.toString() + tempY.toString());
+
+				if (td.innerHTML == "*") {
+					cellCount++;
+				}
+			}
+
+			if (x < 9 && y > 0) {
+				tempX = x + 1;
+				tempY = y - 1;
 
 				td = document.getElementById(tempX.toString() + tempY.toString());
 
