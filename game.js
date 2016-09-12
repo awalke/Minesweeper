@@ -2,39 +2,45 @@ easy();
 
 function changeColor(elmt) {
 	var gameOver = document.getElementById("gameOver");
+	var win = false;
 
-	if (gameOver.innerHTML != "Game Over") {
+	if (gameOver.innerHTML != "Game Over" && gameOver.innerHTML != "You Win!") {
 		if (elmt.innerHTML != "*") {
 			elmt.style.backgroundColor = "transparent";
 			elmt.style.color = "black";
 			revealZeros(elmt);
+			win = checkWin();
+			if (win) {
+				gameOver.innerHTML = "You Win!";
+				revealAll(elmt);
+			}
 		}
 		else {
-			gameOver.innerHTML = "GAME OVER!";
+			gameOver.innerHTML = "GAME OVER	";
+			revealAll(elmt);
+		}
+	}
+}
 
-			for (x = 0; x < 10; x++) {
-		
-				for (y = 0; y < 10; y++) {
-					var td = document.getElementById(x.toString() + y.toString());
-					
-
-					if (td.innerHTML == "*" ) {
-						td.innerHTML = "<img src=\"mine.png\" height=\"10\" width=\"10\">";
-						if (elmt.id == td.id) {
-							td.style.backgroundColor = "rgb(255, 204, 204)";
-						}
-						else {
-							td.style.backgroundColor = "transparent";
-						}
-					}
-					else {
-						td.style.color = "black";
-						td.style.backgroundColor = "transparent";
-					}
-					
+function revealAll(elmt) {
+	for (x = 0; x < 10; x++) {	
+		for (y = 0; y < 10; y++) {
+			var td = document.getElementById(x.toString() + y.toString());
+	
+			if (td.innerHTML == "*" ) {
+				td.innerHTML = "<img src=\"mine.png\" height=\"10\" width=\"10\">";
+				if (elmt.id == td.id) {
+					td.style.backgroundColor = "rgb(255, 204, 204)";
+				}
+				else {
+					td.style.backgroundColor = "transparent";
 				}
 			}
-
+			else {
+				td.style.color = "black";
+				td.style.backgroundColor = "transparent";
+			}
+			
 		}
 	}
 }
@@ -154,7 +160,7 @@ function easy() {
 	var hardButton = document.getElementById("hard");
 	hardButton.style.backgroundColor = "#383838";
 
-	populate(8);
+	populate(10);
 }
 
 function medium() {
@@ -170,7 +176,7 @@ function medium() {
 	var hardButton = document.getElementById("hard");
 	hardButton.style.backgroundColor = "#383838";
 
-	populate(6);
+	populate(7);
 }
 
 function hard() {
@@ -186,7 +192,7 @@ function hard() {
 	var hardButton = document.getElementById("hard");
 	hardButton.style.backgroundColor = "#00bfff";
 
-	populate(4);
+	populate(5);
 }
 
 
@@ -322,4 +328,23 @@ function populateNumbers() {
 
 		}
 	}
+}
+
+function checkWin() {
+	var win = true;
+
+	for (x = 0; x < 10; x++) {
+		
+		for (y = 0; y < 10; y++) {
+			var td = document.getElementById(x.toString() + y.toString());
+
+			if (td.style.backgroundColor == "") {
+				if (td.innerHTML != "*") {
+					win = false;
+				}
+			}
+		}
+	}
+
+	return win;
 }
