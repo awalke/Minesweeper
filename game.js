@@ -56,7 +56,7 @@ function revealAll(elmt) {
 			var td = document.getElementById(x.toString() + y.toString());
 	
 			if (td.innerHTML == "*" ) {
-				td.innerHTML = "<img src=\"mine.png\" height=\"10\" width=\"10\">";
+				td.innerHTML = "<img src=\"mine.png\" height=\"18\" width=\"18\">";
 				if (elmt.id == td.id) {
 					td.style.backgroundColor = "rgb(255, 204, 204)";
 				}
