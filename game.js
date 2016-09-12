@@ -1,3 +1,28 @@
+var h2 = document.getElementsByTagName('h2')[0],
+seconds = 0, minutes = 0, hours = 0, time;
+
+function add() {
+	seconds++;
+	if (seconds >= 60) {
+		seconds = 0;
+		minutes++;
+	}
+	
+	h2.textContent = (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") + ":" + (seconds > 9 ? seconds : "0" + seconds);
+
+	timer();
+}
+function timer() {
+	time = setTimeout(add, 1000);
+}
+
+function resetTimer(){
+	clearTimeout(time);
+	h2.textContent = "00:00";
+	seconds = 0; minutes = 0;
+	timer();
+}
+
 easy();
 
 function changeColor(elmt) {
@@ -18,11 +43,14 @@ function changeColor(elmt) {
 		else {
 			gameOver.innerHTML = "GAME OVER	";
 			revealAll(elmt);
+			var snd = new Audio("bomb.wav");
+			snd.play();
 		}
 	}
 }
 
 function revealAll(elmt) {
+	clearTimeout(time);
 	for (x = 0; x < 10; x++) {	
 		for (y = 0; y < 10; y++) {
 			var td = document.getElementById(x.toString() + y.toString());
@@ -127,6 +155,8 @@ function revealZeros(td) {
 }
 
 function startOver() {
+	resetTimer();
+	
 	var gameOver = document.getElementById("gameOver");
 	var easyButton = document.getElementById("easy");
 	var mediumButton = document.getElementById("medium");
@@ -148,6 +178,8 @@ function startOver() {
 }
 
 function easy() {
+	resetTimer();
+	
 	var t = document.getElementById("minesweeper");
 	t.innerHTML = "";
 
@@ -164,6 +196,8 @@ function easy() {
 }
 
 function medium() {
+	resetTimer();
+	
 	var t = document.getElementById("minesweeper");
 	t.innerHTML = "";
 
@@ -180,6 +214,8 @@ function medium() {
 }
 
 function hard() {
+	resetTimer();
+	
 	var t = document.getElementById("minesweeper");
 	t.innerHTML = "";
 
