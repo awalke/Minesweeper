@@ -1,6 +1,10 @@
 body {
 	background-color: white;
 	font-family: "Belligerent", Arial;
+	-webkit-user-select: none;
+	-moz-user-select: -moz-none;
+	-ms-user-select: none;
+	user-select: none;
 }
 
 @font-face {
@@ -23,6 +27,13 @@ h1 {
 	font-family: "Belligerent", Arial;
 	font-weight: lighter;
 	font-size: 60px;
+}
+
+h2 {
+	text-align: center;
+	font-weight: lighter;
+	font-size: 45px;
+	margin: 15px;
 }
 
 table {
@@ -49,6 +60,7 @@ td {
 
 td:hover {
 	background-color: #00bfff;
+	cursor:pointer;
 }
 
 button {
