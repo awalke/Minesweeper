@@ -1,23 +1,53 @@
+var h2 = document.getElementsByTagName('h2')[0],
+seconds = 0, minutes = 0, hours = 0, time;
+
+function add() {
+	seconds++;
+	if (seconds >= 60) {
+		seconds = 0;
+		minutes++;
+	}
+	
+	h2.textContent = (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") + ":" + (seconds > 9 ? seconds : "0" + seconds);
+
+	timer();
+}
+function timer() {
+	time = setTimeout(add, 1000);
+}
+
+function resetTimer(){
+	clearTimeout(time);
+	h2.textContent = "00:00";
+	seconds = 0; minutes = 0;
+	timer();
+}
+
+
 easy();
 
 function changeColor(elmt) {
 	var gameOver = document.getElementById("gameOver");
 	var win = false;
 
-	if (gameOver.innerHTML != "Game Over" && gameOver.innerHTML != "You Win!") {
+	if (gameOver.innerHTML != "GAME OVER!" && gameOver.innerHTML != "YOU WIN!") {
 		if (elmt.innerHTML != "*") {
 			elmt.style.backgroundColor = "transparent";
 			elmt.style.color = "black";
 			revealZeros(elmt);
 			win = checkWin();
 			if (win) {
-				gameOver.innerHTML = "You Win!";
+				gameOver.innerHTML = "YOU WIN!";
 				revealAll(elmt);
 			}
 		}
 		else {
-			gameOver.innerHTML = "GAME OVER	";
+			gameOver.innerHTML = "GAME OVER!";
+			clearTimeout(time);
 			revealAll(elmt);
+			var snd = new Audio("bomb.wav");
+			snd.play();
+
 		}
 	}
 }
@@ -28,7 +58,7 @@ function revealAll(elmt) {
 			var td = document.getElementById(x.toString() + y.toString());
 	
 			if (td.innerHTML == "*" ) {
-				td.innerHTML = "<img src=\"mine.png\" height=\"10\" width=\"10\">";
+				td.innerHTML = "<img src=\"mine.png\" height=\"13\" width=\"13\">";
 				if (elmt.id == td.id) {
 					td.style.backgroundColor = "rgb(255, 204, 204)";
 				}
@@ -127,6 +157,8 @@ function revealZeros(td) {
 }
 
 function startOver() {
+	resetTimer();
+
 	var gameOver = document.getElementById("gameOver");
 	var easyButton = document.getElementById("easy");
 	var mediumButton = document.getElementById("medium");
@@ -148,8 +180,13 @@ function startOver() {
 }
 
 function easy() {
+	resetTimer();
+
 	var t = document.getElementById("minesweeper");
 	t.innerHTML = "";
+
+	var gameOver = document.getElementById("gameOver");
+	gameOver.innerHTML = "";
 
 	var easyButton = document.getElementById("easy");
 	easyButton.style.backgroundColor = "#00bfff";
@@ -164,8 +201,13 @@ function easy() {
 }
 
 function medium() {
+	resetTimer();
+
 	var t = document.getElementById("minesweeper");
 	t.innerHTML = "";
+
+	var gameOver = document.getElementById("gameOver");
+	gameOver.innerHTML = "";
 
 	var easyButton = document.getElementById("easy");
 	easyButton.style.backgroundColor = "#383838";
@@ -180,14 +222,19 @@ function medium() {
 }
 
 function hard() {
+	resetTimer();
+
 	var t = document.getElementById("minesweeper");
 	t.innerHTML = "";
 
+	var gameOver = document.getElementById("gameOver");
+	gameOver.innerHTML = "";
+
 	var easyButton = document.getElementById("easy");
-	easyButton.style.backgroundColor = "black";
+	easyButton.style.backgroundColor = "#383838";
 
 	var mediumButton = document.getElementById("medium");
-	mediumButton.style.backgroundColor = "black";
+	mediumButton.style.backgroundColor = "#383838";
 
 	var hardButton = document.getElementById("hard");
 	hardButton.style.backgroundColor = "#00bfff";
