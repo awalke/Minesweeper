@@ -38,6 +38,7 @@ function changeColor(elmt) {
 			win = checkWin();
 			if (win) {
 				gameOver.innerHTML = "YOU WIN!";
+				clearTimeout(time);
 				revealAll(elmt);
 			}
 		}

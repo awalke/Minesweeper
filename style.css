@@ -35,7 +35,7 @@ h2 {
 }
 
 table {
-	width: 30%;
+	width: 400px;
 	text-align: center;
 	border-spacing: 0px;
 	margin-left: auto;
@@ -54,6 +54,7 @@ td {
 	background-color: grey;
 	color: transparent;
 	font-size: 18px;
+	width: 10px;
 }
 
 td:hover {
