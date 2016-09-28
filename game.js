@@ -1,6 +1,16 @@
 var h2 = document.getElementsByTagName('h2')[0],
 seconds = 0, minutes = 0, hours = 0, time;
 
+function flag(elmt) {
+	if (elmt.innerHTML.includes("img")) {
+		var flag = document.getElementById("flag" + elmt.id);
+		flag.style.visibility = "hidden";
+	}
+	else {
+		elmt.innerHTML += "<img src=\"mine_flag.png\" height=\"10\" width=\"10\" id=flag" + elmt.id + ">";
+	}
+}
+
 function add() {
 	seconds++;
 	if (seconds >= 60) {
@@ -31,10 +41,18 @@ function changeColor(elmt) {
 	var win = false;
 
 	if (gameOver.innerHTML != "GAME OVER!" && gameOver.innerHTML != "YOU WIN!") {
-		if (elmt.innerHTML != "*") {
+		if (!elmt.innerHTML.includes("*")) {
 			elmt.style.backgroundColor = "transparent";
 			elmt.style.color = "black";
-			revealZeros(elmt);
+			var flag = document.getElementById("flag" + elmt.id);
+			if (flag != null) {
+				flag.style.visibility = "hidden";
+			}
+
+			if (elmt.innerHTML.includes("0")) {
+				revealZeros(elmt);
+			}
+
 			win = checkWin();
 			if (win) {
 				gameOver.innerHTML = "YOU WIN!";
@@ -58,7 +76,7 @@ function revealAll(elmt) {
 		for (y = 0; y < 10; y++) {
 			var td = document.getElementById(x.toString() + y.toString());
 	
-			if (td.innerHTML == "*" ) {
+			if (td.innerHTML.includes("*")) {
 				td.innerHTML = "<img src=\"mine.png\" height=\"13\" width=\"13\">";
 				if (elmt.id == td.id) {
 					td.style.backgroundColor = "rgb(255, 204, 204)";
@@ -68,6 +86,12 @@ function revealAll(elmt) {
 				}
 			}
 			else {
+				var flag = document.getElementById("flag" + elmt.id);
+				
+				if (flag != null) {
+					flag.visibility.style = "hidden";
+				}
+
 				td.style.color = "black";
 				td.style.backgroundColor = "transparent";
 			}
@@ -76,73 +100,66 @@ function revealAll(elmt) {
 	}
 }
 
+function checkForRecursion(td) {
+	if (td.innerHTML.includes("0")  && td.style.color !== "black") {
+		console.log("true2");
+		revealZeros(td);
+	} 
+	else {
+		td.style.backgroundColor = "transparent";
+		td.style.color = "black";
+	}
+}
+
 function revealZeros(td) {
 	var x = parseInt(td.id.charAt(0));
 	var y = parseInt(td.id.charAt(1));
 
+	td.style.backgroundColor = "transparent";
+	td.style.color = "black";
+
 	if (x > 0) {
 		tempX = x - 1;
 		td = document.getElementById(tempX.toString() + y.toString())
-		if (td.innerHTML == "0") {
-			td.style.backgroundColor = "transparent";
-			td.style.color = "black";
-		}
+		checkForRecursion(td);
 	}
 
 	if (y > 0) {
 		tempY = y - 1;
 		td = document.getElementById(x.toString() + tempY.toString())
-		if (td.innerHTML == "0") {
-			td.style.backgroundColor = "transparent";
-			td.style.color = "black";
-		}
+		checkForRecursion(td);
 	}
 	if (x < 9) {
 		tempX = x + 1;
 		td = document.getElementById(tempX.toString() + y.toString())
-		if (td.innerHTML == "0") {
-			td.style.backgroundColor = "transparent";
-			td.style.color = "black";
-		}
+		checkForRecursion(td);
 	}
 
 	if (y < 9) {
 		tempY = y + 1;
 		td = document.getElementById(x.toString() + tempY.toString())
-		if (td.innerHTML == "0") {
-			td.style.backgroundColor = "transparent";
-			td.style.color = "black";
-		}
+		checkForRecursion(td);
 	}
 	
 	if(x > 0 && y > 0) {
 		tempX = x - 1;
 		tempY = y - 1
 		td = document.getElementById(tempX.toString() + tempY.toString())
-		if (td.innerHTML == "0") {
-			td.style.backgroundColor = "transparent";
-			td.style.color = "black";
-		}
+		checkForRecursion(td);
 	}
 	
 	if(x < 9 && y < 9) {
 		tempX = x + 1;
 		tempY = y + 1
 		td = document.getElementById(tempX.toString() + tempY.toString())
-		if (td.innerHTML == "0") {
-			td.style.backgroundColor = "transparent";
-			td.style.color = "black";
-		}
+		checkForRecursion(td);
 	}
 	
 	if (x > 0 && y < 9) {
 		tempX = x - 1;
 		tempY = y + 1
 		td = document.getElementById(tempX.toString() + tempY.toString())
-		if (td.innerHTML == "0") {
-			td.style.backgroundColor = "transparent";
-			td.style.color = "black";
-		}
+		checkForRecursion(td);
 	}
 
 	if (x < 9 && y > 0) {
@@ -150,10 +167,7 @@ function revealZeros(td) {
 		tempY = y - 1;
 		td = document.getElementById(tempX.toString() + tempY.toString());
 
-		if (td.innerHTML == "0") {
-			td.style.backgroundColor = "transparent";
-			td.style.color = "black";
-		}
+		checkForRecursion(td);
 	}
 }
 
@@ -263,7 +277,7 @@ function populate(max) {
 				symbol = "";
 			}
 
-			tr.innerHTML += "<td id= " + i + j + " onclick=changeColor(this)>" + symbol + "</td>";
+			tr.innerHTML += "<td id= " + i + j + " onclick=changeColor(this)  oncontextmenu=\"flag(this);return false;\">" + symbol + "</td>";
 		}
 	}
 
@@ -292,7 +306,7 @@ function populateNumbers() {
 				tempX = x - 1;
 				td = document.getElementById(tempX.toString() + y.toString());
 
-				if (td.innerHTML == "*") {
+				if (td.innerHTML.includes("*")) {
 					cellCount++;
 				}
 			}
@@ -301,7 +315,7 @@ function populateNumbers() {
 				tempY = y - 1;
 				td = document.getElementById(x.toString() + tempY.toString());
 
-				if (td.innerHTML == "*" ) {
+				if (td.innerHTML.includes("*")) {
 					cellCount++;
 				}
 			}	
@@ -310,7 +324,7 @@ function populateNumbers() {
 				tempX = x + 1;
 				td = document.getElementById(tempX.toString() + y.toString());
 
-				if (td.innerHTML == "*") {
+				if (td.innerHTML.includes("*")) {
 					cellCount++;
 				}
 			}
@@ -319,7 +333,7 @@ function populateNumbers() {
 				tempY = y + 1;
 				td = document.getElementById(x.toString() + tempY.toString());
 
-				if (td.innerHTML == "*") {
+				if (td.innerHTML.includes("*")) {
 					cellCount++;
 				}
 			}
@@ -330,7 +344,7 @@ function populateNumbers() {
 
 				td = document.getElementById(tempX.toString() + tempY.toString());
 
-				if (td.innerHTML == "*") {
+				if (td.innerHTML.includes("*")) {
 					cellCount++;
 				}
 			}
@@ -341,7 +355,7 @@ function populateNumbers() {
 
 				td = document.getElementById(tempX.toString() + tempY.toString());
 
-				if (td.innerHTML == "*") {
+				if (td.innerHTML.includes("*")) {
 					cellCount++;
 				}
 			}
@@ -352,7 +366,7 @@ function populateNumbers() {
 
 				td = document.getElementById(tempX.toString() + tempY.toString());
 
-				if (td.innerHTML == "*") {
+				if (td.innerHTML.includes("*")) {
 					cellCount++;
 				}
 			}
@@ -363,12 +377,12 @@ function populateNumbers() {
 
 				td = document.getElementById(tempX.toString() + tempY.toString());
 
-				if (td.innerHTML == "*") {
+				if (td.innerHTML.includes("*")) {
 					cellCount++;
 				}
 			}
 
-			if (current.innerHTML != "*") {
+			if (!current.innerHTML.includes("*")) {
 				current.innerHTML = cellCount;
 			}
 
@@ -387,7 +401,7 @@ function checkWin() {
 			var td = document.getElementById(x.toString() + y.toString());
 
 			if (td.style.backgroundColor == "") {
-				if (td.innerHTML != "*") {
+				if (!td.innerHTML.includes("*")) {
 					win = false;
 				}
 			}
